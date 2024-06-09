@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:MauiApp1.Viewmodels"
+             xmlns:models="clr-namespace:MauiApp1.Models"
+             x:DataType="viewmodel:MainPageViewmodel"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="MauiApp1.MainPage">
+    <VerticalStackLayout>
+        <ListView x:Name="listVi" ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory}" >
+            <ListView.ItemTemplate>                
+                <DataTemplate x:DataType="models:Category" >
+                    <ViewCell Height="300">                        
+                    <Grid  MinimumHeightRequest="250">                        
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.25*" />
+                            <ColumnDefinition Width="0.75*" />
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0" Source="{Binding strCategoryThumb}"/>   
+                            <StackLayout Grid.Column="1">
+                            <Label Text="{Binding strCategory}"/>
+                            <Label Text="{Binding strCategoryDescription}"/>
+                        </StackLayout>                        
+                    </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.Behaviors>
+                <toolkit:EventToCommandBehavior EventName="ItemSelected" Command="{Binding EnterCategoryCommand}" CommandParameter="{Binding SelectedCategory}"/>
+            </ListView.Behaviors>
+        </ListView>
+    </VerticalStackLayout>
+</ContentPage>

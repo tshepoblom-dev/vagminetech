@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiApp1.Views.RecipeList"
+             xmlns:models="clr-namespace:MauiApp1.Models"
+             xmlns:viewmodels="clr-namespace:MauiApp1.Viewmodels"
+             x:DataType="viewmodels:RecipeListViewmodel"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             Title="RecipeList">
+    <VerticalStackLayout>
+        <ListView x:Name="listV" ItemsSource="{Binding Recipes}" SelectedItem="{Binding SelectedRecipe}" >
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="models:Recipe" >
+                    <ViewCell Height="300">
+                        <Grid  MinimumHeightRequest="250">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.25*" />
+                                <ColumnDefinition Width="0.75*" />
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.Column="0" Source="{Binding strMealThumb}"/>
+                            <StackLayout Grid.Column="1">
+                                <Label Text="{Binding strMeal}"/>
+                            </StackLayout>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.Behaviors>
+                <toolkit:EventToCommandBehavior EventName="ItemSelected" Command="{Binding GoToRecipeDetailCommand}" CommandParameter="{Binding SelectedRecipe}"/>
+            </ListView.Behaviors>
+        </ListView>
+    </VerticalStackLayout>
+</ContentPage>
